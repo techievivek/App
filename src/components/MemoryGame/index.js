@@ -5,6 +5,7 @@ import Button from '../Button';
 import withLocalize, {withLocalizePropTypes} from '../withLocalize';
 import * as gameLogic from './gameLogic';
 import GameStatus from './GameStatus';
+import * as Cards from './Cards';
 
 function App(props) {
     const [shouldTheGameStart, setShouldTheGameStart] = useState(false);
@@ -16,6 +17,50 @@ function App(props) {
     const [moves, setMoves] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const timeout = useRef(null);
+
+    const uniqueCardsArray = [
+      {
+        src: Cards.Mayor,
+        id: 0,
+    },
+    {
+        src: Cards.BottleGuy,
+        id: 1,
+    },
+    {
+        src: Cards.BottleGuy,
+        id: 2,
+    },
+    {
+        src: Cards.BottleGuy,
+        id: 3,
+    },
+    {
+        src: Cards.BottleGuy,
+        id: 4,
+    },
+    {
+        src: Cards.BottleGuy,
+        id: 5,
+    },
+    {
+        src: Cards.BottleGuy,
+        id: 6,
+    },
+    {
+        src: Cards.BottleGuy,
+        id: 7,
+    },
+];
+
+    const checkCompletion = () => {
+      if (Object.keys(clearedCards).length === uniqueCardsArray.length) {
+        setShowModal(true);
+        const highScore = Math.min(moves, bestScore);
+        setBestScore(highScore);
+        localStorage.setItem("bestScore", highScore);
+      }
+    };
 
     // Check if both the cards have same type. If they do, mark them inactive
     const evaluate = () => {
