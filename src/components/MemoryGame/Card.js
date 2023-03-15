@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, Pressable} from 'react-native';
+import {StyleSheet, Pressable, Image} from 'react-native';
 
 import Animated, {
     useSharedValue, useAnimatedStyle, withRepeat, withTiming,
@@ -21,7 +21,7 @@ function shuffleCards(array) {
 }
 
 export default function Card({
-    index, key, card, onPress, isDisabled, isInactive, isFlipped,
+    index, key, card, onPress, isDisabled, isInactive, isFlipped, img,
 }) {
     console.log('index');
     const [isOn, setIsOn] = React.useState(false);
@@ -47,7 +47,9 @@ export default function Card({
 
     return (
         <Animated.View style={style}>
-            <Pressable disabled={isDisabled} style={[styles.container]} onPress={handlePress} />
+            <Pressable disabled={isDisabled} style={[styles.container]} onPress={handlePress}>
+                <Image source={card.src} style={{height: 100, width: 100}} />
+            </Pressable>
         </Animated.View>
     );
 }
