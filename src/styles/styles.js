@@ -3052,6 +3052,15 @@ const styles = {
         width: '100%',
     },
 
+    gameStatusContainer: {
+        marginTop: 40,
+        flexDirection: 'row',
+    },
+
+    gameStatusScoreContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
 };
 
 export default styles;
