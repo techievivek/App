@@ -3,15 +3,22 @@ import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import styles from '../../styles/styles';
 import Text from '../Text';
+import withLocalize, {withLocalizePropTypes} from '../withLocalize';
 
 const GameStatus = props => (
     <View style={[styles.gameStatusContainer]}>
         <View style={[styles.flex1, styles.gameStatusScoreContainer]}>
-            <Text>Low score: </Text>
+            <Text>
+                {props.translate('cardMemoryGame.lowScore')}
+                {' '}
+            </Text>
             <Text>{props.lowScore ? props.lowScore : 'N/A' }</Text>
         </View>
         <View style={[styles.flex1, styles.gameStatusScoreContainer]}>
-            <Text>Total Clicks: </Text>
+            <Text>
+                {props.translate('cardMemoryGame.totalClicks')}
+                {' '}
+            </Text>
             <Text>{props.totalClicks}</Text>
         </View>
     </View>
@@ -20,6 +27,8 @@ const GameStatus = props => (
 GameStatus.propTypes = {
     lowScore: PropTypes.number,
     totalClicks: PropTypes.number,
+
+    ...withLocalizePropTypes,
 };
 GameStatus.defaultProps = {
     lowScore: undefined,
@@ -27,4 +36,4 @@ GameStatus.defaultProps = {
 };
 GameStatus.displayName = 'GameStatus';
 
-export default GameStatus;
+export default withLocalize(GameStatus);
