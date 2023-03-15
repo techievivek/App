@@ -96,16 +96,16 @@ export default class MemoryGame extends Component {
               <View style={[styles.mt4]}>
                   {this.state.gameStarted ? (
                       <div className="container">
-                          {/* {cards.map((card, index) => {
+                          { this.state.cardsInPlay.map((card, index) => {
                   return (
                     <Card
                       key={index}
                       card={card}
                       index={index}
-                      onClick={handleCardClick}
+                      onClick={(id) => this.handleCardClick(id)}
                     />
                   );
-                })} */}
+                })} }
                           The Game
                       </div>
                   ) : (
