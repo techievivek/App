@@ -7,5 +7,5 @@ export {
     Mayor,
     BottleGuy,
     Gnome,
-    Back,
+    Back
 };
