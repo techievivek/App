@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import styles from '../../styles/styles';
 import Button from '../Button';
 import withLocalize, {withLocalizePropTypes} from '../withLocalize';
+import GameStatus from './GameStatus';
 
 function App(props) {
     const [shouldTheGameStart, setShouldTheGameStart] = useState(false);
@@ -29,6 +30,7 @@ function App(props) {
                   );
                 })} */}
                 The Game
+                <GameStatus />
               </div>
             ) : (
                 <Button onPress={() => setShouldTheGameStart(true)} text={props.translate('cardMemoryGame.startTheGame')} success large />
