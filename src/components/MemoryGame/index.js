@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
+import _ from 'lodash';
 import styles from '../../styles/styles';
 import Button from '../Button';
 import * as Cards from './Cards';
@@ -67,9 +68,11 @@ export default class MemoryGame extends Component {
         ];
 
         const doubleCards = cards.concat(JSON.parse(JSON.stringify(cards)));
-        this.setState({
-            cards: shuffleCards(doubleCards),
-        });
+        console.log(doubleCards);
+        console.log(_.shuffle(doubleCards));
+        this.state = {
+            cardsInPlay: _.shuffle(doubleCards),
+        };
     }
 
     handleCardClick(id) {
