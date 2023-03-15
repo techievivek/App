@@ -3,11 +3,12 @@ import {View} from 'react-native';
 import styles from '../../styles/styles';
 import Button from '../Button';
 import withLocalize, {withLocalizePropTypes} from '../withLocalize';
+import * as gameLogic from './gameLogic';
 
 function App(props) {
     const [shouldTheGameStart, setShouldTheGameStart] = useState(false);
     const [cards, setCards] = useState(
-      () => shuffleCards(uniqueCardsArray.concat(uniqueCardsArray))
+      () => gameLogic.shuffleCards(uniqueCardsArray.concat(uniqueCardsArray))
     );
     const [openCards, setOpenCards] = useState([]);
     const [clearedCards, setClearedCards] = useState({});
@@ -18,8 +19,8 @@ function App(props) {
     // Check if both the cards have same type. If they do, mark them inactive
     const evaluate = () => {
       const [first, second] = openCards;
-      if (cards[first].type === cards[second].type) {
-        setClearedCards((prev) => ({ ...prev, [cards[first].type]: true }));
+      if (cards[first].id === cards[second].id) {
+        setClearedCards((prev) => ({ ...prev, [cards[first].id]: true }));
         setOpenCards([]);
         return;
       }
@@ -50,11 +51,28 @@ function App(props) {
       return Boolean(clearedCards[card.type]);
     };
 
+    const handleRestart = () => {
+      setClearedCards({});
+      setOpenCards([]);
+      setShowModal(false);
+      setMoves(0);
+      // set a shuffled deck of cards
+      setCards(shuffleCards(uniqueCardsArray.concat(uniqueCardsArray)));
+    };
+
     useEffect(() => {
+      let timeout = null;
       if (openCards.length === 2) {
-        setTimeout(evaluate, 500);
+        timeout = setTimeout(evaluate, 300);
       }
+      return () => {
+        clearTimeout(timeout);
+      };
     }, [openCards]);
+
+    useEffect(() => {
+      checkCompletion();
+    }, [clearedCards]);
 
     return (
       <div className="App">
