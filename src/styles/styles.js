@@ -3061,6 +3061,15 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'center',
     },
+
+    gameSummaryContainer: {
+        alignItems: 'center',
+        paddingVertical: 20,
+    },
+
+    gameSummaryTitle: {
+        fontSize: variables.fontSizeLarge,
+    },
 };
 
 export default styles;

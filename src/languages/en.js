@@ -1197,7 +1197,10 @@ export default {
     allCountries: CONST.ALL_COUNTRIES,
     cardMemoryGame: {
         startTheGame: 'Start the game!',
+        playAgain: 'Play Again?',
         lowScore: 'Low score',
         totalClicks: 'Total clicks',
+        nailedIt: '🎯 Nailed It! 🎯',
+        new: '*new*',
     },
 };
