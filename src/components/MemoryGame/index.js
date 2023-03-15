@@ -1,8 +1,24 @@
-import {Component} from "react";
-import styles from "../../styles/styles";
-import Button from "../Button";
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import styles from '../../styles/styles';
+import Button from '../Button';
 import * as Cards from './Cards';
-import Card from "./Card";
+import Card from './Card';
+
+function swap(array, i, j) {
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+}
+function shuffleCards(array) {
+    const length = array.length;
+    for (let i = length; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * i);
+        const currentIndex = i - 1;
+        swap(array, currentIndex, randomIndex);
+    }
+    return array;
+}
 
 export default class MemoryGame extends Component {
     state = {
@@ -13,8 +29,8 @@ export default class MemoryGame extends Component {
         gameStarted: false,
     };
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         const cards = [
             {
                 src: Cards.Mayor,
@@ -55,13 +71,10 @@ export default class MemoryGame extends Component {
             cards: shuffleCards(doubleCards),
         });
     }
-    
-    handleCardClick (id) {
-        let current_selection = this.state.current_selection;
-        let index = this.state.cards.findIndex(card => {
-            return card.id === id;
-        });
 
+    handleCardClick(id) {
+        const current_selection = this.state.current_selection;
+        const index = this.state.cards.findIndex(card => card.id === id);
 
         if (this.state.cardsInPlay[index].is_open === false) {
             this.state.cardsInPlay[index].is_open = true;
@@ -79,40 +92,33 @@ export default class MemoryGame extends Component {
         }
         if (this.state.foundCards.length === this.state.cardsInPlay.length) {
             this.setState({
-               gameWon: true,
+                gameWon: true,
             });
         }
     }
-  
-  render () {
-      return (
-          <div className="App">
-              <header>
-                  <h3>Play the Flip card game</h3>
-                  <div>
-                      Select two cards with same content consecutively to make them vanish
-                  </div>
-              </header>
-              <View style={[styles.mt4]}>
-                  {this.state.gameStarted ? (
-                      <div className="container">
-                          { this.state.cardsInPlay.map((card, index) => {
-                  return (
-                    <Card
-                      key={index}
-                      card={card}
-                      index={index}
-                      onClick={(id) => this.handleCardClick(id)}
-                    />
-                  );
-                })} }
-                          The Game
-                      </div>
-                  ) : (
-                      <Button onPress={() => this.setState({gameStarted: true})} text={props.translate('cardMemoryGame.startTheGame')} success large />
-                  )}
-              </View>
-          </div>
-      )
-  }
-  }
+
+    render() {
+        console.log(this.state);
+        return (
+            <div className="App">
+                <header>
+                    <h3>Play the Flip card game</h3>
+                    <div>Select two cards with same content consecutively to make them vanish</div>
+                </header>
+                <View style={[styles.mt4]}>
+                    {this.state.gameStarted ? (
+                        <div className="container">
+                            {this.state.cardsInPlay.map((card, index) => (
+                                <Card key={index} card={card} index={index} onClick={id => this.handleCardClick(id)} />
+                            ))}
+                            {' '}
+                            }
+                        </div>
+                    ) : (
+                        <Button onPress={() => this.setState({gameStarted: true})} text="start game" success large />
+                    )}
+                </View>
+            </div>
+        );
+    }
+}

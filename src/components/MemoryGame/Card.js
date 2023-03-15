@@ -5,9 +5,25 @@ import Animated, {
     useSharedValue, useAnimatedStyle, withRepeat, withTiming,
 } from 'react-native-reanimated';
 
+function swap(array, i, j) {
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+}
+function shuffleCards(array) {
+    const length = array.length;
+    for (let i = length; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * i);
+        const currentIndex = i - 1;
+        swap(array, currIndex, randomIndex);
+    }
+    return array;
+}
+
 export default function Card({
     index, key, card, onPress, isDisabled, isInactive, isFlipped,
 }) {
+    console.log('index');
     const [isOn, setIsOn] = React.useState(false);
 
     const sv = useSharedValue(0);
